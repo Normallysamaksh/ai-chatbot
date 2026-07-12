@@ -9,6 +9,10 @@ services:
     env_file:
       - .env
 
+    volumes:
+      - ./backend/uploads:/app/backend/uploads
+      - ./backend/chroma_db:/app/backend/chroma_db
+
   frontend:
     build:
       context: .
