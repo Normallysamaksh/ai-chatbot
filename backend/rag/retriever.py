@@ -1,10 +1,31 @@
-from .vector_store import vector_store
+import boto3
+from langchain_core.documents import Document
 
-retriever = vector_store.as_retriever()
+bedrock_agent_runtime = boto3.client(
+    "bedrock-agent-runtime",
+    region_name="ap-south-1"
+)
 
 
 def retreive_documents(query: str):
-    return retriever.invoke(query)
+    response=bedrock_agent_runtime.retrieve(
+        knowledgeBaseId="LOIP2RDSQ0",
+        retrievalQuery={
+            "text": query,
+        },
+    )
+
+    documents = []
+
+    for result in response["retrievalResults"]:
+        documents.append(
+            Document(
+                page_content=result["content"]["text"],
+                metadata=result["metadata"],
+            )
+        )
+
+    return documents
 
 
 if __name__ == "__main__":

@@ -15,9 +15,10 @@ prompt = PromptTemplate.from_template(""""
 
 chain = prompt | llm | StrOutputParser()
 
+
 def rag_chain(question: str):
     documents = retreive_documents(question)
-    context = "/n/n".join(
+    context = "\n\n".join(
         document.page_content for document in documents
     )
 
@@ -26,15 +27,10 @@ def rag_chain(question: str):
         "question": question,
     })
 
+
 if __name__ == "__main__":
     answer = rag_chain(
         "What advice does this document give to parents?"
     )
 
     print(answer)
-
-    
-
-    
-
-
