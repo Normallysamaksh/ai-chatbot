@@ -17,3 +17,11 @@ def list_pdfs():
             pdfs.append(key)
 
     return pdfs
+
+
+def download_pdf(key, destination):
+    s3.download_file(
+        BUCKET_NAME,
+        key,
+        destination
+    )
