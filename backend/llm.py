@@ -1,9 +1,10 @@
 from dotenv import load_dotenv
-from langchain_groq import ChatGroq
-
+from langchain_aws import ChatBedrock
 load_dotenv()
 
-llm = ChatGroq(
-    model = "llama-3.3-70b-versatile",
-    temperature= 0,
+llm = ChatBedrock(
+    model_id="amazon.nova-lite-v1:0",
+    model_kwargs={
+        "temperature": 0,
+    },
 )
