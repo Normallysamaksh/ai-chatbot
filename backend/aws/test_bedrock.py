@@ -12,7 +12,7 @@ response = bedrock.converse(
             "role": "user",
             "content": [
                 {
-                    "text": "reply with one word: success"
+                    "text": "What is 2 + 2? Reply with only the number."
                 }
             ]
         }
