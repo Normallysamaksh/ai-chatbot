@@ -11,15 +11,18 @@ def ingest_documents(file_paths: list[str]):
     vector_store.add_documents(chunks)
 
 
+def ingest_from_s3():
+    upload_dir = Path("backend/uploads")
+    upload_dir.mkdir(exist_ok=True)
+    file_paths = []
+
+    for pdf in list_pdfs():
+        destination = upload_dir / pdf
+        download_pdf(pdf, destination)
+        file_paths.append(str(destination))
+
+    ingest_documents(file_paths)
+
+
 if __name__ == "__main__":
-	upload_dir = Path("backend/uploads")
-	upload_dir.mkdir(exist_ok=True)
-
-	file_paths = []
-
-	for pdf in list_pdfs():
-		destination = upload_dir / pdf
-		download_pdf(pdf, destination)
-		file_paths.append(str(destination))
-
-	ingest_documents(file_paths)
+    ingest_from_s3()

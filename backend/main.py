@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from fastapi import FastAPI
 from .rag.chain import rag_chain
+from .rag.ingest import ingest_from_s3
 
 app = FastAPI()
 
@@ -22,4 +23,12 @@ def chat(request: ChatRequest):
 
     return {
         "response": answer
+    }
+
+
+@app.post("/ingest")
+def ingest():
+    ingest_from_s3()
+    return {
+        "message": "Documents ingested successfully."
     }
