@@ -20,5 +20,6 @@ response = bedrock.converse(
 )
 
 text = response["output"]["message"]["content"][0]["text"]
+text = text.strip()
 
 print(text)
